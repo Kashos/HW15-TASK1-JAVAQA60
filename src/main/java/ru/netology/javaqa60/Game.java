@@ -9,40 +9,44 @@ public class Game {
         players.add(player);
     }
 
-    public Player findByName(String name) {
+    int result;
+    public int findByName(String name) {
         for (Player player : players) {
-            if (player.getName() == name) {
-                return player;
+            if (player.getName().equals(name)) {
+                result = player.getStrength();
+                return result;
             }
         }
-        return null;
+        return 0;
     }
 
-    int result;
 
-    public int findStrength(String name) {
+
+ /*   public int findStrength(String name) {
         for (Player player : players) {
             if (player.getName() == name) {
-                result = player.getStrength();
+
             }
         }
         return result;
-    }
+    }*/
 
     public int round(String playerName1, String playerName2) {
-        if (findByName(playerName1) == null) {
+        int strengthPlayer1 = findByName(playerName1);
+        int strengthPlayer2 = findByName(playerName2);
+        if (strengthPlayer1 == 0) {
             throw new NotRegisteredException(
                     "Player with name: " + playerName1 + " not registered"
             );
         }
-        if (findByName(playerName2) == null) {
+        if (strengthPlayer2 == 0) {
             throw new NotRegisteredException(
                     "Player with name: " + playerName2 + " not registered"
             );
         }
-        if (findStrength(playerName1) > findStrength(playerName2)) {
+        if (strengthPlayer1 > strengthPlayer2) {
             return 1;
-        } else if (findStrength(playerName1) < findStrength(playerName2)) {
+        } else if (strengthPlayer1 < strengthPlayer2) {
             return 2;
         } else {
             return 0;
